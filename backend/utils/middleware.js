@@ -34,6 +34,8 @@ const errorHandler = (err, req, res, next) => {
 const tokenExtractor = (req, res, next) => {
   const authorization = req.get("authorization");
 
+  // console.log(authorization);
+
   if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
     req.token = authorization.substring(7);
   } else {
@@ -44,7 +46,7 @@ const tokenExtractor = (req, res, next) => {
 };
 
 const userExtractor = async (req, res, next) => {
-  const decodedToken = jwt.verify(req.token, process.env.JWT_SECRET_KEY);
+  const decodedToken = jwt.verify(req.token, process.env.JWT_SECRET_KEY === undefined ? "DemraAI" : process.env.JWT_SECRET_KEY);
 
   if (!req.token || !decodedToken.id) {
     req.user = null;
@@ -54,6 +56,7 @@ const userExtractor = async (req, res, next) => {
   }
 
   req.user = await User.findById(decodedToken.id);
+  // console.log(req.user);
 
   next();
 };

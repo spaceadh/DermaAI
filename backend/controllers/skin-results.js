@@ -38,7 +38,7 @@ skinResultsRouter.get("/:id", async (req, res) => {
 });
 
 skinResultsRouter.post("/", upload.single("skinImage"), async (req, res) => {
-  const decodedToken = jwt.verify(req.token, process.env.JWT_SECRET_KEY);
+  const decodedToken = jwt.verify(req.token, process.env.JWT_SECRET_KEY === undefined ? "DemraAI" : process.env.JWT_SECRET_KEY);
 
   if (!req.token || !decodedToken.id) {
     return res
@@ -52,10 +52,13 @@ skinResultsRouter.post("/", upload.single("skinImage"), async (req, res) => {
     });
   }
 
-  const { skinType, probability, ...otherResults } =
-    await skinResultService.predictFromModel(req.file.path);
+  const { skinType, probability, ...otherResults } = await skinResultService.predictFromModel(req.file.path);
 
-  if (!skinType || !probability || probability < 0.5) {
+  // console.log(probability);
+  // console.log(skinType);
+  // console.log(otherResults);  
+  
+  if (!skinType || !probability || probability < 0.3) {
     return res.status(400).json({ error: { image: "Invalid image." } });
   }
 
@@ -80,7 +83,7 @@ skinResultsRouter.post("/", upload.single("skinImage"), async (req, res) => {
 });
 
 skinResultsRouter.delete("/:id", async (req, res) => {
-  const decodedToken = jwt.verify(req.token, process.env.JWT_SECRET_KEY);
+  const decodedToken = jwt.verify(req.token, process.env.JWT_SECRET_KEY === undefined ? "DemraAI" : process.env.JWT_SECRET_KEY);
 
   if (!req.token || !decodedToken.id) {
     return res
