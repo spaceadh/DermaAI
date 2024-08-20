@@ -3,7 +3,7 @@ Derma is an AI skin health assistant which helps to identify your possible skin 
 
 ## Demonstration
 
-https://github.com/suravshrestha/derma/assets/24486999/2eb3ca12-ad70-4bf5-b041-39177d1946c4
+https://github.com/spaceadh/derma/assets/24486999/2eb3ca12-ad70-4bf5-b041-39177d1946c4
 
 
 ## Requirements
@@ -14,7 +14,7 @@ https://github.com/suravshrestha/derma/assets/24486999/2eb3ca12-ad70-4bf5-b041-3
 ## Usage
 1. Clone the repository
 ```
-git clone https://github.com/suravshrestha/derma.git
+git clone https://github.com/spaceadh/DermaAI.git
 ```
 
 2. Navigate to the repository :open_file_folder:
